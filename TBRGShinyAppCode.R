@@ -10,27 +10,24 @@ ui <- fluidPage(
         body {
           background-color: lightblue;
         }
-        .input-box {
+        .party-box {
           margin-bottom: 10px;
+          padding: 10px;
+          border: 1px solid black;
         }
-        #title-container {
-          display: flex;
-          align-items: center;
+        .party-name {
+          font-weight: bold;
+          font-size: 20px;
+          margin-bottom: 5px;
         }
-        #title-image {
-          margin-right: 10px;
+        .nav-tabs > li > a {
+          color: black;
         }
       ")
     )
   ),
 
-  titlePanel(
-   #### div(id = "title-container",
-    ####    img(id = "title-image", src = "Bloomfield_Research_Group_No_Text_Logo.jpg", height = 50, width = 50),
-        "The Bloomfield Research Group"
-    ),
-
-
+  titlePanel("The Bloomfield Research Group"),
 
   # Tab layout
   tabsetPanel(
@@ -38,60 +35,60 @@ ui <- fluidPage(
              fluidPage(
                sidebarLayout(
                  sidebarPanel(
-                   # DUP Support Inputs
-                   div(class = "input-box",
-                       numericInput("dup_c2de", "DUP C2DE Support",
-                                    min = 0, max = 100, value = 50)),
-                   div(class = "input-box",
-                       numericInput("dup_abc1", "DUP ABC1 Support",
-                                    min = 0, max = 100, value = 50)),
-
-                   # UUP Support Inputs
-                   div(class = "input-box",
-                       numericInput("uup_c2de", "UUP C2DE Support",
-                                    min = 0, max = 100, value = 50)),
-                   div(class = "input-box",
-                       numericInput("uup_abc1", "UUP ABC1 Support",
+                   # DUP Party Inputs
+                   div(class = "party-box",
+                       div(class = "party-name", "DUP"),
+                       numericInput("dup_c2de", "C2DE Support",
+                                    min = 0, max = 100, value = 50),
+                       numericInput("dup_abc1", "ABC1 Support",
                                     min = 0, max = 100, value = 50)),
 
-                   # Alliance Support Inputs
-                   div(class = "input-box",
-                       numericInput("alliance_c2de", "Alliance C2DE Support",
-                                    min = 0, max = 100, value = 50)),
-                   div(class = "input-box",
-                       numericInput("alliance_abc1", "Alliance ABC1 Support",
-                                    min = 0, max = 100, value = 50)),
-
-                   # TUV Support Inputs
-                   div(class = "input-box",
-                       numericInput("tuv_c2de", "TUV C2DE Support",
-                                    min = 0, max = 100, value = 50)),
-                   div(class = "input-box",
-                       numericInput("tuv_abc1", "TUV ABC1 Support",
+                   # UUP Party Inputs
+                   div(class = "party-box",
+                       div(class = "party-name", "UUP"),
+                       numericInput("uup_c2de", "C2DE Support",
+                                    min = 0, max = 100, value = 50),
+                       numericInput("uup_abc1", "ABC1 Support",
                                     min = 0, max = 100, value = 50)),
 
-                   # Sinn Fein Support Inputs
-                   div(class = "input-box",
-                       numericInput("sinn_fein_c2de", "Sinn Fein C2DE Support",
-                                    min = 0, max = 100, value = 50)),
-                   div(class = "input-box",
-                       numericInput("sinn_fein_abc1", "Sinn Fein ABC1 Support",
-                                    min = 0, max = 100, value = 50)),
-
-                   # SDLP Support Inputs
-                   div(class = "input-box",
-                       numericInput("sdlp_c2de", "SDLP C2DE Support",
-                                    min = 0, max = 100, value = 50)),
-                   div(class = "input-box",
-                       numericInput("sdlp_abc1", "SDLP ABC1 Support",
+                   # Alliance Party Inputs
+                   div(class = "party-box",
+                       div(class = "party-name", "Alliance"),
+                       numericInput("alliance_c2de", "C2DE Support",
+                                    min = 0, max = 100, value = 50),
+                       numericInput("alliance_abc1", "ABC1 Support",
                                     min = 0, max = 100, value = 50)),
 
-                   # Other Support Inputs
-                   div(class = "input-box",
-                       numericInput("other_c2de", "Other C2DE Support",
+                   # TUV Party Inputs
+                   div(class = "party-box",
+                       div(class = "party-name", "TUV"),
+                       numericInput("tuv_c2de", "C2DE Support",
+                                    min = 0, max = 100, value = 50),
+                       numericInput("tuv_abc1", "ABC1 Support",
                                     min = 0, max = 100, value = 50)),
-                   div(class = "input-box",
-                       numericInput("other_abc1", "Other ABC1 Support",
+
+                   # Sinn Fein Party Inputs
+                   div(class = "party-box",
+                       div(class = "party-name", "Sinn Fein"),
+                       numericInput("sinn_fein_c2de", "C2DE Support",
+                                    min = 0, max = 100, value = 50),
+                       numericInput("sinn_fein_abc1", "ABC1 Support",
+                                    min = 0, max = 100, value = 50)),
+
+                   # SDLP Party Inputs
+                   div(class = "party-box",
+                       div(class = "party-name", "SDLP"),
+                       numericInput("sdlp_c2de", "C2DE Support",
+                                    min = 0, max = 100, value = 50),
+                       numericInput("sdlp_abc1", "ABC1 Support",
+                                    min = 0, max = 100, value = 50)),
+
+                   # Other Party Inputs
+                   div(class = "party-box",
+                       div(class = "party-name", "Other"),
+                       numericInput("other_c2de", "C2DE Support",
+                                    min = 0, max = 100, value = 50),
+                       numericInput("other_abc1", "ABC1 Support",
                                     min = 0, max = 100, value = 50))
                  ),
                  mainPanel()
@@ -109,6 +106,7 @@ ui <- fluidPage(
     )
   )
 )
+
 
 # Define server logic
 server <- function(input, output) {
