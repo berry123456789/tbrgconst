@@ -27,7 +27,10 @@ ui <- fluidPage(
     )
   ),
 
-  titlePanel("The Bloomfield Research Group"),
+  titlePanel(div(
+    tags$img(src = "C:/Users/sambe/OneDrive/Work_from_placement/shiny/tbrg/photo/Bloomfield_Research_Group_No_Text_Logo.jpg", height = 60, width = 60),
+    "The Bloomfield Research Group"
+  )),
 
   # Tab layout
   tabsetPanel(
@@ -109,7 +112,19 @@ ui <- fluidPage(
 
 
 # Define server logic
-server <- function(input, output) {
+server <- function(input, output, session) {
+
+  # Function to calculate overall support for each party
+  calculate_overall_support <- function(data) {
+    # Replace NA values with 0
+    data[is.na(data)] <- 0
+
+    data$Overall_Support <- data$C2DE_Support + data$ABC1_Support
+    # Ensure overall support does not exceed 100
+    data$Overall_Support <- pmin(data$Overall_Support, 100)
+    data
+  }
+
 
   # Reactive expression to process data based on user inputs
   data <- reactive({
@@ -125,6 +140,24 @@ server <- function(input, output) {
     # Calculate overall support
     data <- calculate_overall_support(data)
     data
+  })
+
+  # Reactive expression for checking if support exceeds 100%
+  support_exceeds_100 <- reactive({
+    overall_support <- rowSums(data()[, c("C2DE_Support", "ABC1_Support")])
+    any(overall_support > 100)
+  })
+
+  # Show message if support exceeds 100%
+  observe({
+    if (support_exceeds_100()) {
+      showModal(
+        modalDialog(
+          title = "Warning",
+          "Total support for a party cannot exceed 100%."
+        )
+      )
+    }
   })
 
   # Reactive expression for East Belfast data
@@ -148,36 +181,26 @@ server <- function(input, output) {
     data_belfast_south_mid_down
   })
 
-
   # Render pie chart for East Belfast
   output$east_belfast_pie <- renderPlot({
     data_east <- data()
     data_east <- data_east[c("Party", "Overall_Support")]
-    pie(data_east$Overall_Support, labels = paste0(data_east$Party, " (", percent(data_east$Overall_Support / sum(data_east$Overall_Support)), ")"), main = "East Down Party Support", col = rainbow(length(data_east$Overall_Support)))
+    pie(data_east$Overall_Support, labels = paste0(data_east$Party, " (", scales::percent(data_east$Overall_Support / sum(data_east$Overall_Support)), ")"), main = "East Down Party Support", col = rainbow(length(data_east$Overall_Support)))
   })
 
   # Render pie chart for North Down
   output$north_down_pie <- renderPlot({
     data_north <- data()
     data_north <- data_north[c("Party", "Overall_Support")]
-    pie(data_north$Overall_Support, labels = paste0(data_north$Party, " (", percent(data_north$Overall_Support / sum(data_north$Overall_Support)), ")"), main = "North Down Party Support", col = rainbow(length(data_north$Overall_Support)))
+    pie(data_north$Overall_Support, labels = paste0(data_north$Party, " (", scales::percent(data_north$Overall_Support / sum(data_north$Overall_Support)), ")"), main = "North Down Party Support", col = rainbow(length(data_north$Overall_Support)))
   })
 
   # Render pie chart for Belfast South & Mid Down
   output$belfast_south_mid_down_pie <- renderPlot({
     data_belfast <- data()
     data_belfast <- data_belfast[c("Party", "Overall_Support")]
-    pie(data_belfast$Overall_Support, labels = paste0(data_belfast$Party, " (", percent(data_belfast$Overall_Support / sum(data_belfast$Overall_Support)), ")"), main = "Belfast South & Mid Down Party Support", col = rainbow(length(data_belfast$Overall_Support)))
+    pie(data_belfast$Overall_Support, labels = paste0(data_belfast$Party, " (", scales::percent(data_belfast$Overall_Support / sum(data_belfast$Overall_Support)), ")"), main = "Belfast South & Mid Down Party Support", col = rainbow(length(data_belfast$Overall_Support)))
   })
 }
 
-# function to calculate overall support for each party
-calculate_overall_support <- function(data) {
-  data$Overall_Support <- data$C2DE_Support + data$ABC1_Support
-  # Ensure overall support does not exceed 100
-  data$Overall_Support <- pmin(data$Overall_Support, 100)
-  data
-}
-
-# Run the application
 shinyApp(ui = ui, server = server)
