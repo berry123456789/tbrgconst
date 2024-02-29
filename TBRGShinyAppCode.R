@@ -24,13 +24,13 @@ ui <- fluidPage(
           color: black;
         }
         .nav-tabs {
-          background-color: white; 
+          background-color: white;
         }
         .tab-content {
-          background-color: white; 
+          background-color: white;
         }
         .data-input-section {
-          background-color: #eaeaea; 
+          background-color: #eaeaea;
           padding: 20px;
           border-radius: 5px;
           margin-bottom: 20px;
@@ -126,18 +126,18 @@ ui <- fluidPage(
                        div(class = "turnout-box",
                            div(class = "party-name", "Irish Turnout Weighting"),
                            sliderInput("turnout_irish_c2de", "C2DE",
-                                       min = 0, max = 100, value = 50),
+                                       min = 0, max = 1, value = 0.5, step = 0.01),
                            sliderInput("turnout_irish_abc1", "ABC1",
-                                       min = 0, max = 100, value = 50)
+                                       min = 0, max = 1, value = 0.5, step = 0.01)
                        ),
-                       
+
                        # Turnout Weighting for Other ABC1 and Other C2DE
                        div(class = "turnout-box",
                            div(class = "party-name", "Other Turnout Weighting"),
                            sliderInput("turnout_other_c2de", "C2DE",
-                                       min = 0, max = 100, value = 50),
+                                       min = 0, max = 1, value = 0.5, step = 0.01),
                            sliderInput("turnout_other_abc1", "ABC1",
-                                       min = 0, max = 100, value = 50)
+                                       min = 0, max = 1, value = 0.5, step = 0.01)
                        )
                      )
                    )
