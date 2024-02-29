@@ -8,7 +8,7 @@ ui <- fluidPage(
     tags$style(
       HTML("
         body {
-          background-color: lightblue;
+          background-color: #4c7fa4;
         }
         .party-box {
           margin-bottom: 10px;
@@ -23,11 +23,23 @@ ui <- fluidPage(
         .nav-tabs > li > a {
           color: black;
         }
-        .party-box_turnout {
-          border: 1px solid black;
-          margin-bottom: 10px;
-          padding: 10px;
+        .nav-tabs {
+          background-color: white; 
+        }
+        .tab-content {
+          background-color: white; 
+        }
+        .data-input-section {
+          background-color: #eaeaea; 
+          padding: 20px;
+          border-radius: 5px;
+          margin-bottom: 20px;
+        }
+        .turnout-box {
           background-color: white;
+          padding: 20px;
+          border-radius: 5px;
+          margin-bottom: 20px;
         }
       ")
     )
@@ -42,90 +54,93 @@ ui <- fluidPage(
   tabsetPanel(
     tabPanel("Data Input",
              fluidPage(
-               sidebarLayout(
-                 sidebarPanel(
-                   # DUP Party Inputs
-                   div(class = "party-box",
-                       div(class = "party-name", "DUP"),
-                       numericInput("dup_c2de", "C2DE Support",
-                                    min = 0, max = 100, value = 50),
-                       numericInput("dup_abc1", "ABC1 Support",
-                                    min = 0, max = 100, value = 50)),
+               div(class = "data-input-section",
+                   sidebarLayout(
+                     sidebarPanel(
+                       # DUP Party Inputs
+                       div(class = "party-box",
+                           div(class = "party-name", "DUP"),
+                           numericInput("dup_c2de", "C2DE Support",
+                                        min = 0, max = 100, value = 50),
+                           numericInput("dup_abc1", "ABC1 Support",
+                                        min = 0, max = 100, value = 50)),
 
-                   # UUP Party Inputs
-                   div(class = "party-box",
-                       div(class = "party-name", "UUP"),
-                       numericInput("uup_c2de", "C2DE Support",
-                                    min = 0, max = 100, value = 50),
-                       numericInput("uup_abc1", "ABC1 Support",
-                                    min = 0, max = 100, value = 50)),
+                       # UUP Party Inputs
+                       div(class = "party-box",
+                           div(class = "party-name", "UUP"),
+                           numericInput("uup_c2de", "C2DE Support",
+                                        min = 0, max = 100, value = 50),
+                           numericInput("uup_abc1", "ABC1 Support",
+                                        min = 0, max = 100, value = 50)),
 
-                   # Alliance Party Inputs
-                   div(class = "party-box",
-                       div(class = "party-name", "Alliance"),
-                       numericInput("alliance_c2de", "C2DE Support",
-                                    min = 0, max = 100, value = 50),
-                       numericInput("alliance_abc1", "ABC1 Support",
-                                    min = 0, max = 100, value = 50)),
+                       # Alliance Party Inputs
+                       div(class = "party-box",
+                           div(class = "party-name", "Alliance"),
+                           numericInput("alliance_c2de", "C2DE Support",
+                                        min = 0, max = 100, value = 50),
+                           numericInput("alliance_abc1", "ABC1 Support",
+                                        min = 0, max = 100, value = 50)),
 
-                   # TUV Party Inputs
-                   div(class = "party-box",
-                       div(class = "party-name", "TUV"),
-                       numericInput("tuv_c2de", "C2DE Support",
-                                    min = 0, max = 100, value = 50),
-                       numericInput("tuv_abc1", "ABC1 Support",
-                                    min = 0, max = 100, value = 50)),
+                       # TUV Party Inputs
+                       div(class = "party-box",
+                           div(class = "party-name", "TUV"),
+                           numericInput("tuv_c2de", "C2DE Support",
+                                        min = 0, max = 100, value = 50),
+                           numericInput("tuv_abc1", "ABC1 Support",
+                                        min = 0, max = 100, value = 50)),
 
-                   # Sinn Fein Party Inputs
-                   div(class = "party-box",
-                       div(class = "party-name", "Sinn Fein"),
-                       numericInput("sinn_fein_c2de", "C2DE Support",
-                                    min = 0, max = 100, value = 50),
-                       numericInput("sinn_fein_abc1", "ABC1 Support",
-                                    min = 0, max = 100, value = 50)),
+                       # Sinn Fein Party Inputs
+                       div(class = "party-box",
+                           div(class = "party-name", "Sinn Fein"),
+                           numericInput("sinn_fein_c2de", "C2DE Support",
+                                        min = 0, max = 100, value = 50),
+                           numericInput("sinn_fein_abc1", "ABC1 Support",
+                                        min = 0, max = 100, value = 50)),
 
-                   # SDLP Party Inputs
-                   div(class = "party-box",
-                       div(class = "party-name", "SDLP"),
-                       numericInput("sdlp_c2de", "C2DE Support",
-                                    min = 0, max = 100, value = 50),
-                       numericInput("sdlp_abc1", "ABC1 Support",
-                                    min = 0, max = 100, value = 50)),
+                       # SDLP Party Inputs
+                       div(class = "party-box",
+                           div(class = "party-name", "SDLP"),
+                           numericInput("sdlp_c2de", "C2DE Support",
+                                        min = 0, max = 100, value = 50),
+                           numericInput("sdlp_abc1", "ABC1 Support",
+                                        min = 0, max = 100, value = 50)),
 
-                   # Other Party Inputs
-                   div(class = "party-box",
-                       div(class = "party-name", "Other"),
-                       numericInput("other_c2de", "C2DE Support",
-                                    min = 0, max = 100, value = 50),
-                       numericInput("other_abc1", "ABC1 Support",
-                                    min = 0, max = 100, value = 50))
-                 ),
-                 mainPanel(
-                   # Turnout Weighting for British ABC1 and British C2DE
-                   div(class = "party-box_turnout",
-                       div(class = "party-name", "British Turnout Weighting"),
-                       sliderInput("turnout_british_c2de", "C2DE",
-                                   min = 0, max = 1, value = 0.5, step = 0.01),
-                       sliderInput("turnout_british_abc1", "ABC1",
-                                   min = 0, max = 1, value = 0.5, step = 0.01)
-                   ),
-                    # Turnout Weighting for Irish ABC1 and Irish C2DE
-                   div(class = "party-box_turnout",
-                       div(class = "party-name", "Irish Turnout Weighting"),
-                       sliderInput("turnout_irish_c2de", "C2DE",
-                                   min = 0, max = 100, value = 50),
-                       sliderInput("turnout_irish_abc1", "ABC1",
-                                   min = 0, max = 100, value = 50)
-                   ),
-                    # Turnout Weighting for Other ABC1 and Other C2DE
-                   div(class = "party-box_turnout",
-                       div(class = "party-name", "Other Turnout Weighting"),
-                       sliderInput("turnout_other_c2de", "C2DE",
-                                   min = 0, max = 100, value = 50),
-                       sliderInput("turnout_other_abc1", "ABC1",
-                                   min = 0, max = 100, value = 50)
+                       # Other Party Inputs
+                       div(class = "party-box",
+                           div(class = "party-name", "Other"),
+                           numericInput("other_c2de", "C2DE Support",
+                                        min = 0, max = 100, value = 50),
+                           numericInput("other_abc1", "ABC1 Support",
+                                        min = 0, max = 100, value = 50))
+                     ),
+                     mainPanel(
+                       # Turnout Weighting for British ABC1 and British C2DE
+                       div(class = "turnout-box",
+                           div(class = "party-name", "British Turnout Weighting"),
+                           sliderInput("turnout_british_c2de", "C2DE",
+                                       min = 0, max = 1, value = 0.5, step = 0.01),
+                           sliderInput("turnout_british_abc1", "ABC1",
+                                       min = 0, max = 1, value = 0.5, step = 0.01)
+                       ),
+                       # Turnout Weighting for Irish ABC1 and Irish C2DE
+                       div(class = "turnout-box",
+                           div(class = "party-name", "Irish Turnout Weighting"),
+                           sliderInput("turnout_irish_c2de", "C2DE",
+                                       min = 0, max = 100, value = 50),
+                           sliderInput("turnout_irish_abc1", "ABC1",
+                                       min = 0, max = 100, value = 50)
+                       ),
+                       
+                       # Turnout Weighting for Other ABC1 and Other C2DE
+                       div(class = "turnout-box",
+                           div(class = "party-name", "Other Turnout Weighting"),
+                           sliderInput("turnout_other_c2de", "C2DE",
+                                       min = 0, max = 100, value = 50),
+                           sliderInput("turnout_other_abc1", "ABC1",
+                                       min = 0, max = 100, value = 50)
+                       )
+                     )
                    )
-                 )
                )
              )
 
@@ -141,7 +156,6 @@ ui <- fluidPage(
     )
   )
 )
-
 
 # Define server logic
 server <- function(input, output, session) {
