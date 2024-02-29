@@ -23,12 +23,18 @@ ui <- fluidPage(
         .nav-tabs > li > a {
           color: black;
         }
+        .party-box_turnout {
+          border: 1px solid black;
+          margin-bottom: 10px;
+          padding: 10px;
+          background-color: white;
+        }
       ")
     )
   ),
 
   titlePanel(div(
-    tags$img(src = "C:/Users/sambe/OneDrive/Work_from_placement/shiny/tbrg/photo/Bloomfield_Research_Group_No_Text_Logo.jpg", height = 60, width = 60),
+    tags$img(src = "Bloomfield_Research_Group_No_Text_Logo.jpg", height = 60, width = 60),
     "The Bloomfield Research Group"
   )),
 
@@ -94,9 +100,35 @@ ui <- fluidPage(
                        numericInput("other_abc1", "ABC1 Support",
                                     min = 0, max = 100, value = 50))
                  ),
-                 mainPanel()
+                 mainPanel(
+                   # Turnout Weighting for British ABC1 and British C2DE
+                   div(class = "party-box_turnout",
+                       div(class = "party-name", "British Turnout Weighting"),
+                       sliderInput("turnout_british_c2de", "C2DE",
+                                   min = 0, max = 1, value = 0.5, step = 0.01),
+                       sliderInput("turnout_british_abc1", "ABC1",
+                                   min = 0, max = 1, value = 0.5, step = 0.01)
+                   ),
+                    # Turnout Weighting for Irish ABC1 and Irish C2DE
+                   div(class = "party-box_turnout",
+                       div(class = "party-name", "Irish Turnout Weighting"),
+                       sliderInput("turnout_irish_c2de", "C2DE",
+                                   min = 0, max = 100, value = 50),
+                       sliderInput("turnout_irish_abc1", "ABC1",
+                                   min = 0, max = 100, value = 50)
+                   ),
+                    # Turnout Weighting for Other ABC1 and Other C2DE
+                   div(class = "party-box_turnout",
+                       div(class = "party-name", "Other Turnout Weighting"),
+                       sliderInput("turnout_other_c2de", "C2DE",
+                                   min = 0, max = 100, value = 50),
+                       sliderInput("turnout_other_abc1", "ABC1",
+                                   min = 0, max = 100, value = 50)
+                   )
+                 )
                )
              )
+
     ),
     tabPanel("East Belfast",
              plotOutput("east_belfast_pie", width = "100%", height = "600px")
